@@ -13,7 +13,9 @@
       <section class="header">
         <div>
           <h1>Nail Nudge</h1>
-          <p>Quietly watching for nail biting.</p>
+          <p class="subtitle">
+            Quietly watching for nail biting. You may close this window.
+          </p>
         </div>
 
         <span id="status" class="status">Idle</span>
@@ -39,9 +41,20 @@
         </div>
       </section>
 
+      <section class="sound-settings">
+        <label for="sound-enabled">
+          <input id="sound-enabled" type="checkbox" checked />
+          Play alert sound
+        </label>
+      </section>
+
       <em class="privacy">
         Processed locally. Never saved. Never uploaded. No account required.
       </em>
+
+      <div style="margin-top: 10px">
+        <em class="privacy"> Make sure to enable notifications. </em>
+      </div>
 
       <audio id="alert-sound" src="/alert.mp3" preload="auto"></audio>
     </main>

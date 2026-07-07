@@ -20,6 +20,8 @@ const alertSound = document.querySelector<HTMLAudioElement>("#alert-sound")!;
 const pauseButton = document.querySelector<HTMLButtonElement>("#pause-button")!;
 const sensitivitySlider =
   document.querySelector<HTMLInputElement>("#sensitivity")!;
+const soundEnabledCheckbox =
+  document.querySelector<HTMLInputElement>("#sound-enabled")!;
 
 if (!video || !canvas || !statusEl || !alertEl) {
   throw new Error("Missing required DOM elements");
@@ -38,6 +40,7 @@ let faceLandmarker: FaceLandmarker | null = null;
 let running = false;
 let lastVideoTime = -1;
 let paused = false;
+let soundEnabled = true;
 
 let loopTimer: number | null = null;
 const LOOP_INTERVAL_MS = 100;
@@ -137,6 +140,11 @@ async function loadSettings(): Promise<void> {
 
   sensitivitySlider.value = sensitivity.toString();
   updateSensitivity(sensitivity);
+
+  const savedSoundEnabled = await store!.get<boolean>("soundEnabled");
+
+  soundEnabled = savedSoundEnabled ?? true;
+  soundEnabledCheckbox.checked = soundEnabled;
 }
 
 function isFingerNearMouth(
@@ -161,6 +169,10 @@ function isFingerNearMouth(
 }
 
 function playAlertSound(): void {
+  if (!soundEnabled) {
+    return;
+  }
+
   alertSound.currentTime = 0;
 
   alertSound.play().catch((error) => {
@@ -379,13 +391,17 @@ pauseButton.addEventListener("click", () => {
   statusEl.textContent = paused ? "Paused" : "Watching...";
   pauseButton.textContent = paused ? "Resume" : "Pause";
 });
-
 sensitivitySlider.addEventListener("input", async () => {
   const value = Number(sensitivitySlider.value);
   updateSensitivity(value);
   if (store) {
     await store.set("sensitivity", value);
   }
+});
+soundEnabledCheckbox.addEventListener("change", async () => {
+  soundEnabled = soundEnabledCheckbox.checked;
+
+  await store!.set("soundEnabled", soundEnabled);
 });
 
 listen("pause-watching", () => {
