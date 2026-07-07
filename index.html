@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tauri App</title>
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+
+  <body>
+    <main class="app">
+      <section class="header">
+        <div>
+          <h1>Nail Nudge</h1>
+          <p>Quietly watching for nail biting.</p>
+        </div>
+
+        <span id="status" class="status">Idle</span>
+      </section>
+
+      <section class="preview-card">
+        <video id="video" autoplay playsinline muted></video>
+        <canvas id="canvas"></canvas>
+      </section>
+
+      <p id="alert" class="alert"></p>
+
+      <section class="controls">
+        <button id="pause-button">Pause</button>
+      </section>
+
+      <section class="settings-card">
+        <label for="sensitivity"> Sensitivity </label>
+        <div>
+          <span>Low</span>
+          <input id="sensitivity" type="range" min="1" max="3" value="2" />
+          <span>High</span>
+        </div>
+      </section>
+
+      <em class="privacy">
+        Processed locally. Never saved. Never uploaded. No account required.
+      </em>
+
+      <audio id="alert-sound" src="/alert.mp3" preload="auto"></audio>
+    </main>
+  </body>
+</html>
