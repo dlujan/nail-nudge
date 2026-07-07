@@ -193,6 +193,10 @@ function showAlert(message: string): void {
   }, 3000);
 }
 
+function getRandomString(strings: string[]): string {
+  return strings[Math.floor(Math.random() * strings.length)];
+}
+
 async function notifyUser(): Promise<void> {
   try {
     let permissionGranted = await isPermissionGranted();
@@ -207,12 +211,19 @@ async function notifyUser(): Promise<void> {
       return;
     }
 
+    const message = getRandomString([
+      "✋ Hands away from your mouth!",
+      "🚫 Leave those fingers alone!",
+      "😵 Take it easy on those nails!",
+      "😢 Your nails right now.",
+      "👏 Give those fingers a break!",
+    ]);
+
     sendNotification({
-      title: "✋ Hands away from your mouth!",
-      // body: "Looks like your hand has been near your mouth for a while.",
+      title: message,
     });
     playAlertSound();
-    showAlert("✋ Hands away from your mouth!");
+    showAlert(message);
   } catch (error) {
     console.error("Notification failed:", error);
   }
