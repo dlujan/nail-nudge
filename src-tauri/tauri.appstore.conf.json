@@ -1,0 +1,9 @@
+{
+  "bundle": {
+    "category": "Utility",
+    "macOS": {
+      "signingIdentity": "DEE3454D425227131C8A7AC04FD438D458D11F06",
+      "entitlements": "Entitlements.plist"
+    }
+  }
+}
