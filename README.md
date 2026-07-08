@@ -10,7 +10,7 @@ This template should help get you started developing with Tauri in vanilla HTML,
 
 npm run tauri dev
 
-## Build for App Store
+## Build for App Store (won't run locally bc it's signed)
 
 npm run tauri build -- --config src-tauri/tauri.appstore.conf.json
 
